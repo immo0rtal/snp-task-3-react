@@ -1,8 +1,8 @@
 import React from "react";
-import "./index.module.scss";
+import style from "./index.module.scss";
 
 const App = () => {
-  return <div className="App"></div>;
+  return <div className={style["content"]}></div>;
 };
 
 export default App;

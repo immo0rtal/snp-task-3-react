@@ -1,6 +1,6 @@
-import watchTodosActions from "./phonebook.js";
+import watchContactsActions from "./phonebook.js";
 import { all } from "redux-saga/effects";
 
 export default function* rootSaga() {
-  yield all([watchTodosActions()]);
+  yield all([watchContactsActions()]);
 }

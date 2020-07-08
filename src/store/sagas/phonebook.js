@@ -3,10 +3,13 @@ import {
   contactsGet,
   contactsGetSuccess,
   contactsGetFailed,
+  contactsPost,
+  contactsPostSuccess,
+  contactsPostFailed,
 } from "../reducers/phonebook.js";
-import { getRequest } from "#/agent";
+import { getRequest, postRequest } from "#/agent";
 
-function* todosGetEffect() {
+function* contactsGetEffect() {
   try {
     const contacts = yield call(getRequest, "http://localhost:3000/phonebook");
     yield put(
@@ -19,8 +22,27 @@ function* todosGetEffect() {
   }
 }
 
-function* watchTodosActions() {
-  yield takeEvery(contactsGet, todosGetEffect);
+function* contactsPostEffect(action) {
+  const { dataField } = action.payload;
+  try {
+    const contact = yield call(
+      postRequest,
+      "http://localhost:3000/phonebook",
+      dataField
+    );
+    yield put(
+      contactsPostSuccess({
+        contact,
+      })
+    );
+  } catch (errorMessage) {
+    yield put(contactsPostFailed({ errorMessage }));
+  }
 }
 
-export default watchTodosActions;
+function* watchContactsActions() {
+  yield takeEvery(contactsGet, contactsGetEffect);
+  yield takeEvery(contactsPost, contactsPostEffect);
+}
+
+export default watchContactsActions;

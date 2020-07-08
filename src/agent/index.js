@@ -16,11 +16,15 @@ export const getRequest = (url) => {
 export const postRequest = (url, body = {}) => {
   return fetch(url, {
     method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
-  }).then((response) => {
-    if (response) {
-      return response.json();
-    }
-    console.error("Error");
-  });
+  })
+    .then((response) => {
+      if (response) {
+        return response.json();
+      }
+    })
+    .catch((error) => {
+      console.error("postRequest", error);
+    });
 };

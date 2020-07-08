@@ -1,0 +1,38 @@
+.modal-wrapper {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+}
+
+.modal {
+  position: relative;
+  margin: auto auto;
+  width: 400px;
+  height: 400px;
+  background: white;
+}
+
+.form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  input {
+    border: 1px solid black;
+  }
+}
+
+.close {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  padding: 0px;
+
+  img {
+    width: 20px;
+  }
+}

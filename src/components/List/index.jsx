@@ -1,32 +1,31 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectContacts } from "#/store/selectors";
+import { selectContacts, selectLoading } from "#/store/selectors";
 import { contactsGet } from "#/store/reducers/phonebook.js";
+import Item from "@/Item";
+import Loader from "@/Loader";
+import style from "./index.module.scss";
 
-const List = React.memo(() => {
+const List = () => {
   const dispatch = useDispatch();
+  const contacts = useSelector(selectContacts);
+  const loading = useSelector(selectLoading);
 
   React.useEffect(() => {
     dispatch(contactsGet());
   }, [dispatch]);
 
-  const contacts = useSelector(selectContacts);
-
   const _renderContacts = React.useMemo(() => {
-    return contacts.map((contact, index) => {
-      return (
-        <div key={index}>
-          <div>======================</div>
-          <div>{contact.title}</div>
-          <div>{contact.owner}</div>
-          <div>{contact.adress}</div>
-          <div>======================</div>
-        </div>
-      );
-    });
+    return contacts.map((contact, index) => (
+      <Item key={index} contact={contact} />
+    ));
   }, [contacts]);
 
-  return <div>{_renderContacts}</div>;
-});
+  return (
+    <div className={style["list"]}>
+      {loading ? <Loader /> : _renderContacts}
+    </div>
+  );
+};
 
-export default List;
+export default React.memo(List);

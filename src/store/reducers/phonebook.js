@@ -16,7 +16,7 @@ const phoneBookSlice = createSlice({
     contactsGetSuccess(state, { payload }) {
       state.loading = false;
       payload.contacts.map((item) => {
-        state.contacts.push(item);
+        return state.contacts.push(item);
       });
     },
     contactsGetFailed(state, { payload }) {

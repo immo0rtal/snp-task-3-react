@@ -12,3 +12,15 @@ export const getRequest = (url) => {
       console.error("getRequest", error);
     });
 };
+
+export const postRequest = (url, body = {}) => {
+  return fetch(url, {
+    method: "POST",
+    body: JSON.stringify(body),
+  }).then((response) => {
+    if (response) {
+      return response.json();
+    }
+    console.error("Error");
+  });
+};

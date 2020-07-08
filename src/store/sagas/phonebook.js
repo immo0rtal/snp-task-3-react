@@ -6,8 +6,11 @@ import {
   contactsPost,
   contactsPostSuccess,
   contactsPostFailed,
+  contactsDelete,
+  contactsDeleteSuccess,
+  contactsDeleteFailed,
 } from "../reducers/phonebook.js";
-import { getRequest, postRequest } from "#/agent";
+import { getRequest, postRequest, deleteRequest } from "#/agent";
 
 function* contactsGetEffect() {
   try {
@@ -40,9 +43,24 @@ function* contactsPostEffect(action) {
   }
 }
 
+function* contactsDeleteEffect(action) {
+  const { id } = action.payload;
+  try {
+    yield call(deleteRequest, `http://localhost:3000/phonebook/${id}`, { id });
+    yield put(
+      contactsDeleteSuccess({
+        id,
+      })
+    );
+  } catch (errorMessage) {
+    yield put(contactsDeleteFailed({ errorMessage }));
+  }
+}
+
 function* watchContactsActions() {
   yield takeEvery(contactsGet, contactsGetEffect);
   yield takeEvery(contactsPost, contactsPostEffect);
+  yield takeEvery(contactsDelete, contactsDeleteEffect);
 }
 
 export default watchContactsActions;

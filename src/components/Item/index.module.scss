@@ -3,6 +3,7 @@
   padding: 15px 15px 15px 10px;
   display: flex;
   font-family: "Roboto";
+  position: relative;
 
   img {
     width: 80px;
@@ -31,4 +32,16 @@
 
 .item:hover {
   background-color: rgb(224, 224, 245);
+}
+
+.delete {
+  max-width: 25px;
+  max-height: 25px;
+}
+
+.delete-button {
+  cursor: pointer;
+  top: 23px;
+  right: 15px;
+  position: absolute;
 }

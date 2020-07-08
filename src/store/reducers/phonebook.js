@@ -17,9 +17,6 @@ const phoneBookSlice = createSlice({
   name: "phonebook",
   initialState,
   reducers: {
-    clearForm(state) {
-      state.form = initialState.form;
-    },
     changeField(state, { payload }) {
       state.form[payload.name] = payload.value;
     },
@@ -48,11 +45,23 @@ const phoneBookSlice = createSlice({
       state.loading = false;
       state.errorMessage = payload.errorMessage;
     },
+    contactsDelete(state) {
+      state.loading = true;
+    },
+    contactsDeleteSuccess(state, { payload }) {
+      state.loading = false;
+      state.contacts = state.contacts.filter(
+        (contact) => contact.id !== payload.id
+      );
+    },
+    contactsDeleteFailed(state, { payload }) {
+      state.loading = false;
+      state.errorMessage = payload.errorMessage;
+    },
   },
 });
 
 export const {
-  clearForm,
   changeField,
   contactsGet,
   contactsGetSuccess,
@@ -60,6 +69,9 @@ export const {
   contactsPost,
   contactsPostSuccess,
   contactsPostFailed,
+  contactsDelete,
+  contactsDeleteSuccess,
+  contactsDeleteFailed,
 } = phoneBookSlice.actions;
 
 export default phoneBookSlice.reducer;

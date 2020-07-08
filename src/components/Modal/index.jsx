@@ -5,11 +5,7 @@ import closeButton from "#/assets/images/close.png";
 import FormInput from "@/FormInput";
 import { fields } from "#/utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  changeField,
-  contactsPost,
-  clearForm,
-} from "#/store/reducers/phonebook";
+import { changeField, contactsPost } from "#/store/reducers/phonebook";
 import { selectFormData, selectLoading } from "#/store/selectors";
 
 const Modal = (props) => {
@@ -22,6 +18,8 @@ const Modal = (props) => {
     return Object.values(dataField).some((text) => !text);
   }, [dataField]);
 
+  const [isNotValid, setIsNotValid] = React.useState(valid);
+
   const handleInputChange = React.useCallback(
     (event) => {
       const { value } = event.target;
@@ -31,18 +29,16 @@ const Modal = (props) => {
     [dispatch]
   );
 
-  const handleClose = React.useCallback(() => {
-    close();
-    dispatch(clearForm());
-  }, [dispatch, close]);
-
   const handleSubmit = React.useCallback(
     (event) => {
       event.preventDefault();
-      close();
-      dispatch(contactsPost({ dataField }));
+      setIsNotValid(valid);
+      if (!valid) {
+        close();
+        dispatch(contactsPost({ dataField }));
+      }
     },
-    [dispatch, dataField, close]
+    [dispatch, dataField, close, valid, setIsNotValid]
   );
 
   const _renderInput = React.useMemo(() => {
@@ -59,18 +55,19 @@ const Modal = (props) => {
   return createPortal(
     <div className={style["modal-wrapper"]}>
       <div className={style["modal"]}>
-        <button className={style["close"]} onClick={handleClose}>
+        <button className={style["close"]} onClick={close}>
           <img src={closeButton} alt="close" />
         </button>
         <form className={style["form"]} onSubmit={handleSubmit} noValidate>
           {_renderInput}
-          <button
-            className={style["button"]}
-            type="submit"
-            disabled={loading || valid}
-          >
+          <button className={style["button"]} type="submit" disabled={loading}>
             Создать
           </button>
+          {isNotValid && (
+            <span className={style["valid-message"]}>
+              Не все поля заполнены
+            </span>
+          )}
         </form>
       </div>
     </div>,

@@ -14,7 +14,7 @@ const FormInput = (props) => {
         onChange={onChange}
         type="text"
         data-name={field}
-        data={data[field]}
+        value={data[field]}
         placeholder={getPlaceholder(field)}
       />
     </div>

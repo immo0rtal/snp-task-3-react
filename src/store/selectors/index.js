@@ -14,3 +14,8 @@ export const selectFormData = createSelector(
   (state) => state.phonebook.form,
   (form) => form
 );
+
+export const selectSearchText = createSelector(
+  (state) => state.phonebook.searchText,
+  (text) => text
+);

@@ -9,6 +9,7 @@ export const initialState = {
     adress: "",
     number: "",
   },
+  searchText: "",
   loading: false,
   errorMessage: null,
 };
@@ -17,6 +18,9 @@ const phoneBookSlice = createSlice({
   name: "phonebook",
   initialState,
   reducers: {
+    changeSearchText(state, { payload }) {
+      state.searchText = payload.text;
+    },
     clearForm(state) {
       state.form = initialState.form;
     },
@@ -75,10 +79,22 @@ const phoneBookSlice = createSlice({
       state.loading = false;
       state.errorMessage = payload.errorMessage;
     },
+    contactsSearch(state) {
+      state.loading = true;
+    },
+    contactsSearchSuccess(state, { payload }) {
+      state.loading = false;
+      state.contacts = payload.contacts;
+    },
+    contactsSearchFailed(state, { payload }) {
+      state.loading = false;
+      state.errorMessage = payload.errorMessage;
+    },
   },
 });
 
 export const {
+  changeSearchText,
   clearForm,
   changeField,
   setForm,
@@ -94,6 +110,9 @@ export const {
   contactsPut,
   contactsPutSuccess,
   contactsPutFailed,
+  contactsSearch,
+  contactsSearchSuccess,
+  contactsSearchFailed,
 } = phoneBookSlice.actions;
 
 export default phoneBookSlice.reducer;

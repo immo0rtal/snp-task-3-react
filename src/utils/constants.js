@@ -7,3 +7,5 @@ export const placeholders = {
 };
 
 export const fields = ["title", "owner", "type", "adress", "number"];
+
+export const api = "http://localhost:3000/phonebook";

@@ -25,7 +25,7 @@ const Modal = (props) => {
       dispatch(setForm({ contact }));
     }
   }, [contact, dispatch, edit]);
-
+  
   const valid = React.useMemo(() => {
     return Object.values(dataField).some((text) => !text);
   }, [dataField]);

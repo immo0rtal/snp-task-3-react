@@ -1,20 +1,41 @@
+@import "#/styles/colors.module.scss";
+@import "#/styles/breakpoints.module.scss";
+
 .header {
   padding: 20px 20px 10px 40px;
+
+  @include mobileL {
+    padding: 10px 10px 5px 20px;
+  }
 }
 
 .title {
   font-size: 25px;
   font-family: "roboto";
+
+  @include mobileL {
+    font-size: 20px;
+  }
 }
 
 .search {
   margin-top: 20px;
-  background: rgb(240, 240, 240);
+  background: $input;
   border-radius: 3px;
   padding: 10px;
   width: 250px;
   font-size: 15px;
   font-family: "roboto";
+  
+  @include mobileL {
+    margin-top: 15px;
+    font-size: 10px;
+  }
+
+  @include mobileS {
+    padding: 7px;
+    width: 200px;
+  }
 }
 
 .add {
@@ -23,5 +44,13 @@
   padding: 10px;
   margin-left: 15px;
   font-size: 15px;
-  background: rgb(224, 224, 245);
+  background: $lightpurple;
+
+  @include mobileL {
+    font-size: 10px;
+  }
+
+  @include mobileS {
+    padding: 7px;
+  }
 }

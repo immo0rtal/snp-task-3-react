@@ -36,11 +36,11 @@ const Item = (props) => {
         <div className={style["content"]}>
           <div className={style["name"]}>
             <div>{contact.title}</div>
-            {contact.owner && <div>{"(" + contact.owner + ")"}</div>}
-            <div>{contact.type}</div>
+            <div className={style["type"]}>{contact.type}</div>
           </div>
           <div className={style["info"]}>
-            <div>{contact.adress}</div>
+            <div className={style["adress"]}>{contact.adress}</div>
+            <div className={style["hidden-number"]}>{contact.number}</div>
           </div>
         </div>
       </div>

@@ -1,13 +1,24 @@
+@import "#/styles/colors.module.scss";
+@import "#/styles/breakpoints.module.scss";
+
 .form-input {
   margin-top: 20px;
-  background: rgb(240, 240, 240);
+  background: $input;
   border-radius: 3px;
   padding: 10px;
   width: 100%;
+
+  @include mobileS {
+    padding: 7px;
+  }
 }
 
 .input {
   font-size: 15px;
   font-family: "roboto";
   width: 100%;
+
+  @include mobileS {
+    font-size: 10px;
+  }
 }

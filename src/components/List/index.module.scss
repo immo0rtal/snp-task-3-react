@@ -1,9 +1,19 @@
+@import "#/styles/breakpoints.module.scss";
+
 .list {
   margin: 0 auto;
   padding: 20px;
+
+  @include mobileL {
+    padding: 0px;
+  }
 }
 
 .empty {
+  @include mobileL {
+    font-size: 15px;
+  }
+
   font-size: 25px;
   font-family: "Roboto";
   display: flex;

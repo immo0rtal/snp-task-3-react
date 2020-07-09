@@ -1,14 +1,25 @@
 import React from "react";
-import style from "./index.module.scss";
-import List from "@/List";
-import Header from "@/Header";
+import Main from "&/Main";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import ContactPage from "&/ContactPage";
+import { contactsGet } from "#/store/reducers/phonebook.js";
+import { useDispatch } from "react-redux";
 
 const Application = () => {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(contactsGet());
+  }, [dispatch]);
+
   return (
-    <div className={style["content"]}>
-      <Header />
-      <List />
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" component={Main} exact={true} />
+        <Route path="/contacts" component={Main} exact={true}></Route>
+        <Route path="/contacts/:id" component={ContactPage}></Route>
+      </Switch>
+    </BrowserRouter>
   );
 };
 

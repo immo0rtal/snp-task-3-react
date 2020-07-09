@@ -17,6 +17,13 @@ const phoneBookSlice = createSlice({
   name: "phonebook",
   initialState,
   reducers: {
+    clearForm(state) {
+      state.form = initialState.form;
+    },
+    setForm(state, { payload }) {
+      const { title, owner, type, adress, number } = payload.contact;
+      state.form = { title, owner, type, adress, number };
+    },
     changeField(state, { payload }) {
       state.form[payload.name] = payload.value;
     },
@@ -25,9 +32,7 @@ const phoneBookSlice = createSlice({
     },
     contactsGetSuccess(state, { payload }) {
       state.loading = false;
-      payload.contacts.map((item) => {
-        return state.contacts.push(item);
-      });
+      state.contacts = payload.contacts;
     },
     contactsGetFailed(state, { payload }) {
       state.loading = false;
@@ -58,11 +63,25 @@ const phoneBookSlice = createSlice({
       state.loading = false;
       state.errorMessage = payload.errorMessage;
     },
+    contactsPut(state) {
+      state.loading = true;
+    },
+    contactsPutSuccess(state, { payload }) {
+      state.loading = false;
+      const id = state.contacts.findIndex((el) => el.id === payload.contact.id);
+      state.contacts[id] = payload.contact;
+    },
+    contactsPutFailed(state, { payload }) {
+      state.loading = false;
+      state.errorMessage = payload.errorMessage;
+    },
   },
 });
 
 export const {
+  clearForm,
   changeField,
+  setForm,
   contactsGet,
   contactsGetSuccess,
   contactsGetFailed,
@@ -72,6 +91,9 @@ export const {
   contactsDelete,
   contactsDeleteSuccess,
   contactsDeleteFailed,
+  contactsPut,
+  contactsPutSuccess,
+  contactsPutFailed,
 } = phoneBookSlice.actions;
 
 export default phoneBookSlice.reducer;

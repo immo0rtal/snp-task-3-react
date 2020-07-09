@@ -1,5 +1,8 @@
 .loader {
-  width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.loader-img {
+  max-width: 30px;
 }

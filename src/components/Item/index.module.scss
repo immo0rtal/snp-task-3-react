@@ -3,11 +3,14 @@
   padding: 15px 15px 15px 10px;
   display: flex;
   font-family: "Roboto";
-  position: relative;
 
   img {
     width: 80px;
   }
+}
+
+.wrapper {
+  position: relative;
 }
 
 .content {
@@ -30,18 +33,32 @@
   justify-content: space-between;
 }
 
-.item:hover {
+.wrapper:hover {
   background-color: rgb(224, 224, 245);
 }
 
 .delete {
   max-width: 25px;
   max-height: 25px;
+  pointer-events: none;
 }
 
 .delete-button {
   cursor: pointer;
   top: 23px;
   right: 15px;
+  position: absolute;
+}
+
+.edit {
+  max-width: 25px;
+  max-height: 25px;
+  pointer-events: none;
+}
+
+.edit-button {
+  cursor: pointer;
+  top: 23px;
+  right: 45px;
   position: absolute;
 }

@@ -14,7 +14,7 @@ const Header = () => {
       <button className={style["add"]} onClick={toggle}>
         Добавить
       </button>
-      {showModal && <Modal close={toggle} />}
+      {showModal && <Modal edit={false} close={toggle} />}
     </div>
   );
 };

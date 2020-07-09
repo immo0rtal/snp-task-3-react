@@ -45,3 +45,19 @@ export const deleteRequest = (url, body = {}) => {
       console.error("deleteRequest", error);
     });
 };
+
+export const putRequest = (url, body = {}) => {
+  return fetch(url, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+    })
+    .catch((error) => {
+      console.error("deleteRequest", error);
+    });
+};

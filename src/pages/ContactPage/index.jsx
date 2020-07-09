@@ -3,6 +3,7 @@ import style from "./index.module.scss";
 import { useSelector } from "react-redux";
 import { selectContacts } from "#/store/selectors";
 import picture from "#/assets/images/picture.png";
+import Loader from "@/Loader";
 
 const ContactPage = (props) => {
   const { id } = props.match.params;
@@ -15,16 +16,25 @@ const ContactPage = (props) => {
 
   return (
     <div className={style["content"]}>
-      <img className={style["picture"]} src={picture} alt="loading" />
-      <div className={`${style["info"]} ${style["title"]}`}>
-        {contact.title}
-      </div>
-      <div className={`${style["info"]} ${style["desription"]}`}>
-        {"Адрес: " + contact.adress}
-      </div>
-      <div className={`${style["info"]} ${style["desription"]}`}>
-        {"Номер телефона: " + contact.number}
-      </div>
+      {contact ? (
+        <>
+          <img className={style["picture"]} src={picture} alt="loading" />
+          <div className={`${style["info"]} ${style["title"]}`}>
+            {contact.title}
+          </div>
+          <div className={`${style["info"]} ${style["owner"]}`}>
+            {"(" + contact.owner + ")"}
+          </div>
+          <div className={`${style["info"]} ${style["number"]}`}>
+            {"Номер телефона: " + contact.number}
+          </div>
+          <div className={`${style["info"]} ${style["desription"]}`}>
+            {"Адрес: " + contact.adress}
+          </div>
+        </>
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 };

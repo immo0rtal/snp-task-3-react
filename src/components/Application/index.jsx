@@ -9,6 +9,7 @@ const Application = () => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
+    console.log("seks")
     dispatch(contactsGet());
   }, [dispatch]);
 

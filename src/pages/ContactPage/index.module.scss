@@ -1,5 +1,6 @@
 .content {
   width: 1000px;
+  height: 700px;
   margin: 1% auto;
   background: white;
   padding: 20px;
@@ -17,7 +18,16 @@
 .picture {
   display: flex;
   align-items: center;
-  max-width: 450px;
+  max-width: 200px;
+}
+
+.owner {
+  opacity: 80%;
+}
+
+.number {
+  opacity: 80%;
+  margin-top: 150px;
 }
 
 .desription {

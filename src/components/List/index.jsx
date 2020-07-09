@@ -17,7 +17,13 @@ const List = () => {
 
   return (
     <div className={style["list"]}>
-      {loading ? <Loader /> : _renderContacts}
+      {loading ? (
+        <Loader />
+      ) : contacts.length ? (
+        _renderContacts
+      ) : (
+        <div className={style["empty"]}>Пусто</div>
+      )}
     </div>
   );
 };

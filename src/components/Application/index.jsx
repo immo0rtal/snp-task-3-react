@@ -3,15 +3,20 @@ import Main from "&/Main";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import ContactPage from "&/ContactPage";
 import { contactsGet } from "#/store/reducers/phonebook.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectContacts } from "#/store/selectors";
 
 const Application = () => {
   const dispatch = useDispatch();
+  const contacts = useSelector(selectContacts);
 
   React.useEffect(() => {
-    console.log("seks")
     dispatch(contactsGet());
   }, [dispatch]);
+
+  React.useEffect(() => {
+    localStorage.setItem("Contacts", JSON.stringify(contacts));
+  }, [contacts]);
 
   return (
     <BrowserRouter>

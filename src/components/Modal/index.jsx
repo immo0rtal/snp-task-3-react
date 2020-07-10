@@ -20,17 +20,18 @@ const Modal = (props) => {
   const dataField = useSelector(selectFormData);
   const loading = useSelector(selectLoading);
 
-  React.useEffect(() => {
-    if (edit) {
-      dispatch(setForm({ contact }));
-    }
-  }, [contact, dispatch, edit]);
-  
   const valid = React.useMemo(() => {
     return Object.values(dataField).some((text) => !text);
   }, [dataField]);
 
   const [isNotValid, setIsNotValid] = React.useState(valid);
+
+  React.useEffect(() => {
+    if (edit) {
+      dispatch(setForm({ contact }));
+      setIsNotValid(valid);
+    }
+  }, [contact, dispatch, edit, valid]);
 
   const handleInputChange = React.useCallback(
     (event) => {
@@ -54,6 +55,7 @@ const Modal = (props) => {
         } else {
           dispatch(contactsPost({ dataField }));
         }
+        dispatch(clearForm());
       }
     },
     [dispatch, dataField, close, valid, setIsNotValid, edit, contact]

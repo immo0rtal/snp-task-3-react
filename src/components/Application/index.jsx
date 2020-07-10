@@ -3,20 +3,14 @@ import Main from "&/Main";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import ContactPage from "&/ContactPage";
 import { contactsGet } from "#/store/reducers/phonebook.js";
-import { useDispatch, useSelector } from "react-redux";
-import { selectContacts } from "#/store/selectors";
+import { useDispatch } from "react-redux";
 
 const Application = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
 
   React.useEffect(() => {
     dispatch(contactsGet());
   }, [dispatch]);
-
-  React.useEffect(() => {
-    localStorage.setItem("Contacts", JSON.stringify(contacts));
-  }, [contacts]);
 
   return (
     <BrowserRouter>
@@ -24,9 +18,10 @@ const Application = () => {
         <Route path="/" component={Main} exact={true} />
         <Route path="/contacts" component={Main} exact={true}></Route>
         <Route path="/contacts/:id" component={ContactPage}></Route>
+        <Route path="/?search=:str" component={Main}></Route>
       </Switch>
     </BrowserRouter>
   );
 };
 
-export default React.memo(Application);
+export default Application;

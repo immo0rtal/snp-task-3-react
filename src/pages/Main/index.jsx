@@ -3,13 +3,15 @@ import style from "./index.module.scss";
 import List from "@/List";
 import Header from "@/Header";
 
-const Main = () => {
+const Main = (props) => {
+  const { location } = props;
+
   return (
     <div className={style["content"]}>
-      <Header />
+      <Header location={location} />
       <List />
     </div>
   );
 };
 
-export default Main;
+export default React.memo(Main);

@@ -10,16 +10,26 @@ const List = () => {
   const loading = useSelector(selectLoading);
 
   const _renderContacts = React.useMemo(() => {
-    return contacts.map((contact, index) => (
-      <Item key={index} contact={contact} />
-    ));
+    if (contacts) {
+      return contacts.map((contact, index) => (
+        <Item key={index} contact={contact} />
+      ));
+    }
+  }, [contacts]);
+
+  const contactsLength = React.useMemo(() => {
+    if (contacts) {
+      return contacts.length;
+    } else {
+      return 0;
+    }
   }, [contacts]);
 
   return (
     <div className={style["list"]}>
       {loading ? (
         <Loader />
-      ) : contacts.length ? (
+      ) : contactsLength ? (
         _renderContacts
       ) : (
         <div className={style["empty"]}>Пусто</div>

@@ -17,11 +17,13 @@ import {
   contactsSearchFailed,
 } from "../reducers/phonebook.js";
 import { getRequest, postRequest, deleteRequest, putRequest } from "#/agent";
-import { api } from "#/utils/constants";
+import { api, apiMethod } from "#/utils/constants";
+
+const { SEARCH, POST, ROOT } = apiMethod;
 
 function* contactsGetEffect() {
   try {
-    const contacts = yield call(getRequest, api);
+    const contacts = yield call(getRequest, api(ROOT));
     yield put(
       contactsGetSuccess({
         contacts,
@@ -35,7 +37,7 @@ function* contactsGetEffect() {
 function* contactsPostEffect(action) {
   const { dataField } = action.payload;
   try {
-    const contact = yield call(postRequest, api, dataField);
+    const contact = yield call(postRequest, api(ROOT), dataField);
     yield put(
       contactsPostSuccess({
         contact,
@@ -49,7 +51,7 @@ function* contactsPostEffect(action) {
 function* contactsDeleteEffect(action) {
   const { id } = action.payload;
   try {
-    yield call(deleteRequest, `${api}/${id}`, { id });
+    yield call(deleteRequest, api(POST, id), { id });
     yield put(
       contactsDeleteSuccess({
         id,
@@ -63,7 +65,7 @@ function* contactsDeleteEffect(action) {
 function* contactsPutEffect(action) {
   const { dataField } = action.payload;
   try {
-    const contact = yield call(putRequest, `${api}/${dataField.id}`, dataField);
+    const contact = yield call(putRequest, api(POST, dataField.id), dataField);
     yield put(
       contactsPutSuccess({
         contact,
@@ -77,7 +79,7 @@ function* contactsPutEffect(action) {
 function* contactsSearchEffect(action) {
   const { value } = action.payload;
   try {
-    const contacts = yield call(getRequest, `${api}?q=${value}`);
+    const contacts = yield call(getRequest, api(SEARCH, value));
     yield put(
       contactsSearchSuccess({
         contacts,

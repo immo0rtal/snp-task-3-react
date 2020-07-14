@@ -24,12 +24,11 @@ const Modal = (props) => {
     return Object.values(dataField).some((text) => !text);
   }, [dataField]);
 
-  const [isNotValid, setIsNotValid] = React.useState(valid);
+  const [isNotValid, setIsNotValid] = React.useState();
 
   React.useEffect(() => {
     if (edit) {
       dispatch(setForm({ contact }));
-      setIsNotValid(valid);
     }
   }, [contact, dispatch, edit, valid]);
 

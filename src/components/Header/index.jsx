@@ -16,12 +16,17 @@ const Header = (props) => {
   const searchTextDebounce = useDebounce(searchText, 500);
 
   React.useEffect(() => {
-    dispatch(contactsSearch({ value: searchTextDebounce }));
+    if (searchTextDebounce !== null) {
+      dispatch(contactsSearch({ value: searchTextDebounce }));
+    }
+    if (searchTextDebounce === "") {
+      dispatch(changeSearchText({ text: null }));
+    }
   }, [searchTextDebounce, dispatch]);
 
   React.useEffect(() => {
     const value = queryString.parse(props.location.search).search;
-    if (searchText === "" && value) {
+    if ((searchText === null || searchText === "") && value) {
       dispatch(
         changeSearchText({
           text: value,
@@ -30,7 +35,9 @@ const Header = (props) => {
     }
   }, [dispatch, props.location, searchText]);
 
-  const toggle = React.useCallback(() => setShowModal(!showModal), [showModal]);
+  const handleModalToggle = React.useCallback(() => setShowModal(!showModal), [
+    showModal,
+  ]);
 
   const onChange = React.useCallback(
     (event) => {
@@ -52,13 +59,13 @@ const Header = (props) => {
         className={style["search"]}
         onChange={onChange}
         placeholder="Поиск"
-        value={searchText}
+        value={searchText || ""}
         type="text"
       />
-      <button className={style["add"]} onClick={toggle}>
+      <button className={style["add"]} onClick={handleModalToggle}>
         Добавить
       </button>
-      {showModal && <Modal edit={false} close={toggle} />}
+      {showModal && <Modal edit={false} close={handleModalToggle} />}
     </div>
   );
 };

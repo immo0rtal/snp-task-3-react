@@ -9,7 +9,7 @@ export const initialState = {
     adress: "",
     number: "",
   },
-  searchText: "",
+  searchText: null,
   loading: false,
   errorMessage: null,
 };

@@ -1,9 +1,8 @@
 import React from "react";
-import Main from "&/Main";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import ContactPage from "&/ContactPage";
 import { contactsGet } from "#/store/reducers/phonebook.js";
 import { useDispatch } from "react-redux";
+import { routes } from "#/utils/constants";
 
 const Application = () => {
   const dispatch = useDispatch();
@@ -15,10 +14,9 @@ const Application = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" component={Main} exact={true} />
-        <Route path="/contacts" component={Main} exact={true}></Route>
-        <Route path="/contacts/:id" component={ContactPage}></Route>
-        <Route path="/?search=:str" component={Main}></Route>
+        {routes.map(({ path, exact, component }) => (
+          <Route key={path} exact={exact} path={path} component={component} />
+        ))}
       </Switch>
     </BrowserRouter>
   );

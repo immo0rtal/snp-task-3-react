@@ -1,7 +1,5 @@
 export const getRequest = (url) => {
-  return fetch(url, {
-    method: "GET",
-  })
+  return fetch(url)
     .then((response) => {
       if (response.ok) {
         return response.json();
